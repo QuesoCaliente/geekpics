@@ -1,0 +1,162 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// model User {
+//   id        String          @id @default(uuid())
+//   email     String          @unique
+//   name      String?
+//   photo     String?
+//   password  String
+//   roleId    String
+//   role      Role            @relation(fields: [roleId], references: [id])
+//   createdAt DateTime        @default(now())
+//   updatedAt DateTime        @updatedAt
+//   enabled   Boolean         @default(true)
+//   favorites UsersOnWaifus[]
+//   waifus    Waifus[]
+// }
+
+model Waifus {
+  id          String          @id @default(uuid())
+  name        String          @unique
+  alias       String?
+  anime       Anime?          @relation(fields: [animeId], references: [id])
+  animeId     String?
+  images      String[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  users       UsersOnWaifus[]
+  createdBy   User            @relation(fields: [createdById], references: [id])
+  createdById String
+  category    Category?       @relation(fields: [categoryId], references: [id])
+  categoryId  String?
+  enabled     Boolean         @default(true)
+}
+
+model UsersOnWaifus {
+  waifu      Waifus   @relation(fields: [waifuId], references: [id])
+  waifuId    String
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  assignedAt DateTime @default(now())
+  assignedBy String
+
+  @@id([waifuId, userId])
+}
+
+model Role {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  enabled   Boolean  @default(true)
+
+  users User[]
+}
+
+model Anime {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  enabled   Boolean  @default(true)
+  waifus    Waifus[]
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  enabled   Boolean  @default(true)
+  waifus    Waifus[]
+  images    Image[]
+}
+
+model Album {
+  id          String   @id @default(uuid())
+  title       String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  enabled     Boolean  @default(true)
+  images      Image[]
+}
+
+model Image {
+  id         String   @id @default(uuid())
+  name       String   @unique
+  url        String   @unique
+  album      Album?   @relation(fields: [albumId], references: [id])
+  albumId    String?
+  category   Category @relation(fields: [categoryId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  categoryId String
+  createdAt  DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+}
+
+// NextAuth Models
+
+model Account {
+  id                String  @id @default(uuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String          @id @default(uuid())
+  name          String?
+  password      String?
+  email         String?         @unique
+  emailVerified DateTime?
+  image         String?
+  favorites     UsersOnWaifus[]
+  waifus        Waifus[]
+  images        Image[]
+  accounts      Account[]
+  sessions      Session[]
+  Role          Role?           @relation(fields: [roleId], references: [id])
+  roleId        String?         @default("c348dc6e-24ca-4e08-8633-b8072efb95b6")
+  isActive      Boolean         @default(true)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}

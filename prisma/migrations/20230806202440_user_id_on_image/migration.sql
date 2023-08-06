@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Image" ADD COLUMN     "userId" TEXT NOT NULL DEFAULT 'eb27a139-1e23-41c5-97d9-1ac7d8b7d926';
+
+-- AddForeignKey
+ALTER TABLE "Image" ADD CONSTRAINT "Image_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
