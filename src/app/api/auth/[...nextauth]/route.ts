@@ -1,15 +1,14 @@
-import NextAuth, { NextAuthOptions, User } from "next-auth";
+import NextAuth, { AuthOptions, NextAuthOptions, User } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import DiscordProvider from "next-auth/providers/discord";
 // import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "@/lib/prisma";
-import { Adapter } from "@next-auth/adapters";
 import { signInEmailPassword } from "@/core/auth/actions/user_actions";
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma) as Adapter,
+  adapter: PrismaAdapter(prisma) as AuthOptions["adapter"],
   providers: [
     // CredentialsProvider({
     //   name: "Credentials",
