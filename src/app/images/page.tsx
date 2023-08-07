@@ -41,7 +41,7 @@ export default async function ImagesPage() {
   const posts: Response = await getImages();
   return (
     <div>
-      <Gallery images={posts.images} />
+      <Gallery images={posts?.images ?? []} />
     </div>
   );
 }
