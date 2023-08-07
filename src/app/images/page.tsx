@@ -26,13 +26,13 @@ export interface Category {
   enabled: boolean;
 }
 
-const getImages = async () => {
+const getImages: () => Promise<Post[]> = async () => {
   const response = await fetch(`${process.env.API_URL}/api/images`, {
     cache: "no-cache",
   });
 
-  const data = await response.json();
-  return data;
+  const data: Post[] = await response.json();
+  return data ?? [];
 };
 
 export default async function ImagesPage() {
