@@ -19,7 +19,8 @@ export interface Post {
 }
 
 interface Response {
-  images: Post[];
+  images?: Post[];
+  error?: string;
 }
 
 export interface Category {
@@ -41,6 +42,11 @@ const getImages = async () => {
 
 export default async function ImagesPage() {
   const posts: Response = await getImages();
+
+  if (posts?.error) {
+    return <div>{posts.error}</div>;
+  }
+
   const images = posts?.images ?? [];
   return (
     <div>
