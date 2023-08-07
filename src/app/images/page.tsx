@@ -36,6 +36,7 @@ const getImages = async () => {
   });
   const contentType = response.headers.get("content-type");
   if (!contentType || !contentType.includes("application/json")) {
+    console.log(await response.json());
     throw new Error("La respuesta no es un JSON válido");
   }
   const data = await response.json();
