@@ -8,7 +8,7 @@ interface GalleryProps {
 
 export const Gallery = ({ images }: GalleryProps) => {
   return (
-    <div className="columns-5 columns-lg">
+    <div className="columns-lg">
       {images?.length > 0 &&
         images?.map((image, index) => (
           <Image

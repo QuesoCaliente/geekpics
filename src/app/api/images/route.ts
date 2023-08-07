@@ -8,8 +8,9 @@ export async function GET(request: Request) {
       category: true,
     },
   });
-
+  console.log("AQUI XD", images);
   if (!images || images?.length === 0) {
+    console.log("RESPUESTA 1");
     return NextResponse.json([]);
   }
 
@@ -20,6 +21,6 @@ export async function GET(request: Request) {
   images?.forEach((image, idx) => {
     image.url = urls![idx];
   });
-
+  console.log("RESPUESTA 2, ", images);
   return NextResponse.json(images ?? []);
 }
