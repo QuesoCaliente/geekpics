@@ -10,31 +10,16 @@ export async function GET(request: Request) {
   });
 
   if (!images || images?.length === 0) {
-    return new Response(
-      JSON.stringify({
-        error: "No se encontraron imagenes",
-      }),
-      { status: 404 }
-    );
+    return NextResponse.json([]);
   }
 
   const { error, urls } = await getImages(images?.map(({ url }) => url));
   if (error) {
-    return new Response(
-      JSON.stringify({
-        error,
-      }),
-      { status: 500 }
-    );
+    return NextResponse.json([]);
   }
   images?.forEach((image, idx) => {
     image.url = urls![idx];
   });
 
-  return new Response(
-    JSON.stringify({
-      images: images ?? [],
-    }),
-    { status: 200 }
-  );
+  return NextResponse.json(images ?? []);
 }

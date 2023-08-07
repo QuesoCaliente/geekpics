@@ -18,11 +18,6 @@ export interface Post {
   category: Category;
 }
 
-interface Response {
-  images?: Post[];
-  error?: string;
-}
-
 export interface Category {
   id: string;
   name: string;
@@ -32,25 +27,20 @@ export interface Category {
 }
 
 const getImages = async () => {
-  try {
-    const response = await fetch(`${process.env.API_URL}/api/images`, {
-      cache: "no-cache",
-    });
+  const response = await fetch(`${process.env.API_URL}/api/images`, {
+    cache: "no-cache",
+  });
 
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    return { error: error };
-  }
+  const data = await response.json();
+  return data;
 };
 
 export default async function ImagesPage() {
-  const posts: Response = await getImages();
+  const posts: Post[] = await getImages();
 
-  if (posts?.error) {
-    return <div>{posts.error}</div>;
-  }
-
-  const images = posts?.images ?? [];
-  return <div>{images?.length > 0 && <Gallery images={images} />}</div>;
+  return (
+    <div>
+      <Gallery images={posts} />
+    </div>
+  );
 }
