@@ -32,7 +32,7 @@ const getImages: () => Promise<Post[]> = async () => {
   });
 
   if (response.headers.get("content-type") !== "application/json") {
-    throw new Error("API response is not JSON");
+    return [];
   }
 
   const data: Post[] = await response.json();
