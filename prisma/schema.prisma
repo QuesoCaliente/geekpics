@@ -10,42 +10,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model User {
-//   id        String          @id @default(uuid())
-//   email     String          @unique
-//   name      String?
-//   photo     String?
-//   password  String
-//   roleId    String
-//   role      Role            @relation(fields: [roleId], references: [id])
-//   createdAt DateTime        @default(now())
-//   updatedAt DateTime        @updatedAt
-//   enabled   Boolean         @default(true)
-//   favorites UsersOnWaifus[]
-//   waifus    Waifus[]
-// }
-
 model Waifus {
   id          String          @id @default(uuid())
   name        String          @unique
   alias       String?
-  anime       Anime?          @relation(fields: [animeId], references: [id])
+  anime       Anime?          @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId     String?
   images      String[]
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
   users       UsersOnWaifus[]
-  createdBy   User            @relation(fields: [createdById], references: [id])
+  createdBy   User            @relation(fields: [createdById], references: [id], onDelete: Cascade)
   createdById String
-  category    Category?       @relation(fields: [categoryId], references: [id])
+  category    Category?       @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId  String?
   enabled     Boolean         @default(true)
 }
 
 model UsersOnWaifus {
-  waifu      Waifus   @relation(fields: [waifuId], references: [id])
+  waifu      Waifus   @relation(fields: [waifuId], references: [id], onDelete: Cascade)
   waifuId    String
-  user       User     @relation(fields: [userId], references: [id])
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String
   assignedAt DateTime @default(now())
   assignedBy String
@@ -96,10 +81,10 @@ model Image {
   id         String   @id @default(uuid())
   name       String   @unique
   url        String   @unique
-  album      Album?   @relation(fields: [albumId], references: [id])
+  album      Album?   @relation(fields: [albumId], references: [id], onDelete: Cascade)
   albumId    String?
-  category   Category @relation(fields: [categoryId], references: [id])
-  user       User     @relation(fields: [userId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String
   categoryId String
   createdAt  DateTime @default(now())
@@ -148,7 +133,7 @@ model User {
   images        Image[]
   accounts      Account[]
   sessions      Session[]
-  Role          Role?           @relation(fields: [roleId], references: [id])
+  role          Role?           @relation(fields: [roleId], references: [id], onDelete: Cascade)
   roleId        String?         @default("3ba8c0a5-fbb0-4071-ad6b-11cb1b72b265")
   isActive      Boolean         @default(true)
 }
