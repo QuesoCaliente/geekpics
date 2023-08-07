@@ -52,9 +52,5 @@ export default async function ImagesPage() {
   }
 
   const images = posts?.images ?? [];
-  return (
-    <div>
-      <Gallery images={images} />
-    </div>
-  );
+  return <div>{images?.length > 0 && <Gallery images={images} />}</div>;
 }

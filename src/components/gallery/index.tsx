@@ -17,8 +17,8 @@ export const Gallery = ({ images }: GalleryProps) => {
             height={0}
             style={{ width: "100%", height: "auto" }}
             sizes="100vw"
-            alt={image.name}
-            src={image.url}
+            alt={image?.name}
+            src={image?.url}
           />
         ))}
     </div>
