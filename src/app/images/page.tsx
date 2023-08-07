@@ -32,7 +32,7 @@ export interface Category {
 
 const getImages = () => {
   const response = fetch(`${process.env.API_URL}/api/images`, {
-    cache: "no-store",
+    cache: "no-cache",
   }).then((res) => res.json());
   return response;
 };

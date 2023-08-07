@@ -9,7 +9,16 @@ export async function GET(request: Request) {
     },
   });
 
-  const { error, urls } = await getImages(images.map(({ url }) => url));
+  if (!images) {
+    return new Response(
+      JSON.stringify({
+        error: "No se encontraron imagenes",
+      }),
+      { status: 404 }
+    );
+  }
+
+  const { error, urls } = await getImages(images?.map(({ url }) => url));
   if (error) {
     return new Response(
       JSON.stringify({
