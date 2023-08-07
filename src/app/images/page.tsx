@@ -36,12 +36,11 @@ const getImages: () => Promise<Post[]> = async () => {
 };
 
 export default async function ImagesPage() {
-  const posts = await getImages();
+  // const posts = await getImages();
 
   return (
     <div>
       <Gallery images={[]} />
-      {JSON.stringify(posts)}
     </div>
   );
 }
