@@ -4,11 +4,33 @@ import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(request: Request) {
   console.log("GET IMAGES");
-  const images = await prisma.image.findMany({
-    include: {
-      category: true,
-    },
-  });
+  let images: ({
+    category: {
+      id: string;
+      name: string;
+      createdAt: Date;
+      updatedAt: Date;
+      enabled: boolean;
+    };
+  } & {
+    id: string;
+    name: string;
+    url: string;
+    albumId: string | null;
+    userId: string;
+    categoryId: string;
+    createdAt: Date;
+    updatedAt: Date;
+  })[] = [];
+  try {
+    images = await prisma.image.findMany({
+      include: {
+        category: true,
+      },
+    });
+  } catch (error) {
+    console.log("ERROR ESPECIAL", error);
+  }
   console.log("AQUI XD", images);
   if (!images || images?.length === 0) {
     console.log("RESPUESTA 1");
