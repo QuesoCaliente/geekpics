@@ -36,11 +36,12 @@ const getImages = async () => {
 };
 
 export default async function ImagesPage() {
-  // const posts: Post[] = await getImages();
+  const posts = await getImages();
 
   return (
     <div>
       <Gallery images={[]} />
+      {JSON.stringify(posts)}
     </div>
   );
 }
