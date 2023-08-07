@@ -27,6 +27,7 @@ export interface Category {
 }
 
 const getImages = async () => {
+  console.log("INICIO GET IMAGES");
   const response = await fetch(`${process.env.API_URL}/api/images`, {
     cache: "no-cache",
   });

@@ -3,6 +3,7 @@ import { getImages, getUserPresignedUrls } from "@/utils/uploadImage";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(request: Request) {
+  console.log("GET IMAGES");
   const images = await prisma.image.findMany({
     include: {
       category: true,
