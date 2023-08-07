@@ -32,12 +32,16 @@ export interface Category {
 }
 
 const getImages = async () => {
-  const response = await fetch(`${process.env.API_URL}/api/images`, {
-    cache: "no-cache",
-  });
+  try {
+    const response = await fetch(`${process.env.API_URL}/api/images`, {
+      cache: "no-cache",
+    });
 
-  const data = await response.json();
-  return data;
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return { error: error };
+  }
 };
 
 export default async function ImagesPage() {
