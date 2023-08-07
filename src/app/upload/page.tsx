@@ -15,9 +15,6 @@ const getCategorys = async () => {
       revalidate: 3600,
     },
   });
-  console.log("CONTENT TYPE ", response.headers.get("content-type"));
-  const text = await response.text();
-  console.log("TEXT ", text);
   if (response.headers.get("content-type") !== "application/json") {
     return [];
   }
