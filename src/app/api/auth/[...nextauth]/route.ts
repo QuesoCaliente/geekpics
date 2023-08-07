@@ -49,6 +49,9 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
+    async redirect({ url, baseUrl }) {
+      return baseUrl;
+    },
     async signIn({ user }) {
       return true;
     },
