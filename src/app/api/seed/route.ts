@@ -32,40 +32,6 @@ export async function GET(request: Request) {
     data: [{ name: "Administrator" }, { name: "Moderator" }, { name: "User" }],
   });
 
-  const adminRole = await prisma.role.findFirst({
-    where: {
-      name: "Administrator",
-    },
-  });
-
-  await prisma.user.createMany({
-    data: [
-      {
-        email: "brianc.contacto@gmail.com",
-        name: "Brian",
-        photo: "https://avatars.githubusercontent.com/u/29721601?v=4",
-        roleId: adminRole?.id!,
-        password: "123456",
-      },
-    ],
-  });
-
-  const sfwCategory = await prisma.category.findFirst({
-    where: {
-      name: "SFW",
-    },
-  });
-
-  await prisma.image.createMany({
-    data: [
-      {
-        name: "pink girl",
-        url: "images/Konachan.com - 360261 bikini_top bottomless bow braids breasts cleavage clouds green_eyes halo kuroduki long_hair pink_hair see_through shirt sky tree underboob water.jpg",
-        categoryId: sfwCategory?.id!,
-      },
-    ],
-  });
-
   return NextResponse.json({
     message: "Seed Executed",
   });
