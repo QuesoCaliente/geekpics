@@ -52,6 +52,7 @@ export function ImageForm({ categorys }: IImageFormProps) {
   };
 
   const createImage = async (url: string, name: string, type: string) => {
+    console.log("ANTES DE CREAR IMAGEN ", url, name, type);
     const res = await fetch("/api/image", {
       method: "POST",
       headers: {
