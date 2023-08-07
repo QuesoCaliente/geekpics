@@ -39,9 +39,10 @@ const getImages = () => {
 
 export default async function ImagesPage() {
   const posts: Response = await getImages();
+  const images = posts?.images ?? [];
   return (
     <div>
-      <Gallery images={posts?.images ?? []} />
+      <Gallery images={images} />
     </div>
   );
 }
