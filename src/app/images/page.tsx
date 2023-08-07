@@ -30,11 +30,16 @@ export interface Category {
   enabled: boolean;
 }
 
-const getImages = () => {
-  const response = fetch(`${process.env.API_URL}/api/images`, {
+const getImages = async () => {
+  const response = await fetch(`${process.env.API_URL}/api/images`, {
     cache: "no-cache",
-  }).then((res) => res.json());
-  return response;
+  });
+  const contentType = response.headers.get("content-type");
+  if (!contentType || !contentType.includes("application/json")) {
+    throw new Error("La respuesta no es un JSON válido");
+  }
+  const data = await response.json();
+  return data;
 };
 
 export default async function ImagesPage() {
