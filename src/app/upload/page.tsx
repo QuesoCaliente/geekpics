@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const getCategorys = () => {
   const response: Promise<Category[]> = fetch(
-    "http://localhost:3000/api/category",
+    `${process.env.API_URL}/api/category`,
     {
       next: {
         revalidate: 3600,

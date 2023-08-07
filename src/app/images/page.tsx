@@ -31,8 +31,8 @@ export interface Category {
 }
 
 const getImages = () => {
-  const response = fetch("http://localhost:3000/api/images", {
-    cache: "no-cache",
+  const response = fetch(`${process.env.API_URL}/api/images`, {
+    cache: "no-store",
   }).then((res) => res.json());
   return response;
 };
