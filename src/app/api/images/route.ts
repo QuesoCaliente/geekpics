@@ -9,7 +9,7 @@ export async function GET(request: Request) {
     },
   });
 
-  if (!images) {
+  if (!images || images?.length === 0) {
     return new Response(
       JSON.stringify({
         error: "No se encontraron imagenes",
@@ -27,7 +27,7 @@ export async function GET(request: Request) {
       { status: 500 }
     );
   }
-  images.forEach((image, idx) => {
+  images?.forEach((image, idx) => {
     image.url = urls![idx];
   });
 
