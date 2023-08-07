@@ -34,13 +34,7 @@ const getImages = async () => {
   const response = await fetch(`${process.env.API_URL}/api/images`, {
     cache: "no-cache",
   });
-  const contentType = response.headers.get("content-type");
-  if (!contentType || !contentType.includes("application/json")) {
-    console.log(response);
-    throw new Error(
-      `La respuesta no es un JSON válido ${JSON.stringify(response, null, 2)}`
-    );
-  }
+
   const data = await response.json();
   return data;
 };

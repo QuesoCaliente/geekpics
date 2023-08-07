@@ -33,7 +33,7 @@ export async function GET(request: Request) {
 
   return new Response(
     JSON.stringify({
-      images,
+      images: images ?? [],
     }),
     { status: 200 }
   );
