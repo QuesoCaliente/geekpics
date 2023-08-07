@@ -18,7 +18,7 @@ export async function GET(request: Request) {
     Bucket: "gallry",
     Key:
       "images/" +
-      url.searchParams.get("categoryImage") +
+      url.searchParams.get("category") +
       "/" +
       url.searchParams.get("file"),
     Fields: {
