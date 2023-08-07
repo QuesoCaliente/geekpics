@@ -14,13 +14,15 @@ export async function GET(request: Request) {
     },
   });
 
+  const category = await prisma.category.findUnique({
+    where: {
+      id: url.searchParams.get("category")!,
+    },
+  });
+
   const post = await createPresignedPost(s3, {
     Bucket: "gallry",
-    Key:
-      "images/" +
-      url.searchParams.get("category") +
-      "/" +
-      url.searchParams.get("file"),
+    Key: "images/" + category?.name + "/" + url.searchParams.get("file"),
     Fields: {
       "Content-Type": url.searchParams.get("fileType")!,
     },

@@ -11,9 +11,7 @@ export const metadata: Metadata = {
 
 const getCategorys = async () => {
   const response = await fetch(`${process.env.API_URL}/api/category`, {
-    next: {
-      revalidate: 3600,
-    },
+    cache: "no-cache",
   });
   if (response.headers.get("content-type") !== "application/json") {
     return [];
