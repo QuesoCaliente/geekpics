@@ -31,16 +31,20 @@ const getImages: () => Promise<Post[]> = async () => {
     cache: "no-cache",
   });
 
+  if (response.headers.get("content-type") !== "application/json") {
+    throw new Error("API response is not JSON");
+  }
+
   const data: Post[] = await response.json();
-  return data ?? [];
+  return data;
 };
 
 export default async function ImagesPage() {
-  // const posts = await getImages();
+  const posts = await getImages();
 
   return (
     <div>
-      <Gallery images={[]} />
+      <Gallery images={posts} />
     </div>
   );
 }
