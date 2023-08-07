@@ -22,7 +22,7 @@ export const signInEmailPassword = async (email: string, password: string) => {
 
 const createUser = async (email: string, password: string) => {
   const userRole = await prisma.role.findFirst({
-    where: { name: "User" },
+    where: { id: "User" },
   });
   const user = await prisma.user.create({
     data: {

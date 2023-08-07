@@ -5,7 +5,6 @@ import DiscordProvider from "next-auth/providers/discord";
 // import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "@/lib/prisma";
-import { signInEmailPassword } from "@/core/auth/actions/user_actions";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as AuthOptions["adapter"],

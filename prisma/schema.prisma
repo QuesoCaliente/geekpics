@@ -149,7 +149,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   Role          Role?           @relation(fields: [roleId], references: [id])
-  roleId        String?         @default("c348dc6e-24ca-4e08-8633-b8072efb95b6")
+  roleId        String?         @default("3ba8c0a5-fbb0-4071-ad6b-11cb1b72b265")
   isActive      Boolean         @default(true)
 }
 
