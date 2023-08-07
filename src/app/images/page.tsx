@@ -27,7 +27,6 @@ export interface Category {
 }
 
 const getImages = async () => {
-  console.log("INICIO GET IMAGES");
   const response = await fetch(`${process.env.API_URL}/api/images`, {
     cache: "no-cache",
   });
@@ -37,11 +36,11 @@ const getImages = async () => {
 };
 
 export default async function ImagesPage() {
-  const posts: Post[] = await getImages();
+  // const posts: Post[] = await getImages();
 
   return (
     <div>
-      <Gallery images={posts} />
+      <Gallery images={[]} />
     </div>
   );
 }
