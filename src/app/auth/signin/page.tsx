@@ -30,7 +30,6 @@ export default function SignIn() {
               />
             </div>
             <p className="text-center text-xl text-gray-600">Bienvenido!</p>
-            {/* Divider */}
             <div className="flex items-center my-3">
               <div className="border-t border-gray-300 flex-grow mr-3" />
               <div className="text-gray-500">O</div>
