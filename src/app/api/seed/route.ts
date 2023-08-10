@@ -22,7 +22,11 @@ export async function GET(request: Request) {
   });
 
   await prisma.category.createMany({
-    data: [{ name: "SFW" }, { name: "NSFW" }, { name: "Ecchi" }],
+    data: [
+      { id: "46021183-8e35-42d0-ac28-26cee27ef34f", name: "SFW" },
+      { id: "4b5fd1b4-72cb-412f-8e86-5b4c14940046", name: "NSFW" },
+      { id: "a8fc6f21-625c-4034-a7e3-b438aa977218", name: "Ecchi" },
+    ],
   });
 
   await prisma.role.createMany({

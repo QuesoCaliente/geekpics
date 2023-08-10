@@ -18,7 +18,7 @@ export default function Hero() {
           este emocionante viaje visual en línea!
         </p>
       </div>
-      <div className="md:w-1/3 w-full overflow-hidden relative h-screen">
+      <div className="md:w-1/3 w-full overflow-hidden relative h-[80vh]">
         <Image fill src="/images/hero.jpg" alt="hero" />
       </div>
     </section>
