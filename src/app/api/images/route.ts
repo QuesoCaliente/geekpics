@@ -2,6 +2,8 @@ import prisma from "@/lib/prisma";
 import { getImages, getUserPresignedUrls } from "@/utils/uploadImage";
 import { NextResponse, NextRequest } from "next/server";
 
+export const revalidate = 0;
+
 export async function GET(request: Request) {
   const images = await prisma.image.findMany({
     include: {
