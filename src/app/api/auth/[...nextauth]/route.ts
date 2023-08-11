@@ -51,25 +51,26 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
+  events: {
+    createUser: async (message) => {
+      const userCreated = await prisma.user.findUnique({
+        where: { email: message.user.id },
+      });
+      if (userCreated) {
+        await prisma.user.update({
+          where: { email: message.user.id },
+          data: {
+            roleId: "c348dc6e-24ca-4e08-8633-b8072efb95b6",
+          },
+        });
+      }
+    },
+  },
   callbacks: {
     async redirect({ url, baseUrl }) {
       return baseUrl;
     },
     async signIn({ user }) {
-      if (user.role === undefined) {
-        const userRole = await prisma.role.findUnique({
-          where: { id: "c348dc6e-24ca-4e08-8633-b8072efb95b6" },
-        });
-        user.role = userRole!;
-        await prisma.user.update({
-          where: {
-            id: user.id,
-          },
-          data: {
-            roleId: userRole?.id,
-          },
-        });
-      }
       return true;
     },
     async jwt({ token, user, account, profile }) {
