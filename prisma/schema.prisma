@@ -134,7 +134,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   role          Role?           @relation(fields: [roleId], references: [id], onDelete: Cascade)
-  roleId        String?         @default("c348dc6e-24ca-4e08-8633-b8072efb95b6")
+  roleId        String?
   isActive      Boolean         @default(true)
 }
 
