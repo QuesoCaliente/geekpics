@@ -54,13 +54,16 @@ export const authOptions: NextAuthOptions = {
   events: {
     createUser: async (message) => {
       const userCreated = await prisma.user.findUnique({
-        where: { email: message.user.id },
+        where: { id: message.user.id },
+      });
+      const roleUser = await prisma.role.findUnique({
+        where: { name: "User" },
       });
       if (userCreated) {
         await prisma.user.update({
-          where: { email: message.user.id },
+          where: { id: message.user.id },
           data: {
-            roleId: "c348dc6e-24ca-4e08-8633-b8072efb95b6",
+            roleId: roleUser?.id!,
           },
         });
       }
